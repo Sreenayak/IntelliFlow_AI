@@ -1,8 +1,8 @@
 {
-  "name": "intelliflow-summarizer",
+  "name": "codebench",
   "version": "1.0.0",
   "private": true,
-  "description": "A focused, streaming AI text summarizer.",
+  "description": "A focused, streaming AI code reviewer.",
   "engines": {
     "node": ">=18"
   },
@@ -14,7 +14,8 @@
   "dependencies": {
     "express": "^4.21.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",

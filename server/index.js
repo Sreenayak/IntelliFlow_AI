@@ -17,7 +17,7 @@ const REVIEW_FOCUS = {
 app.use(express.json({ limit: "100kb" }));
 app.use((error, req, res, next) => {
   if (error.type === "entity.too.large") {
-    return res.status(413).json({ error: "Request is too large. Keep your text under 20,000 characters." });
+    return res.status(413).json({ error: "Request is too large. Keep submitted code under 20,000 characters." });
   }
   if (error instanceof SyntaxError && error.status === 400 && "body" in error) {
     return res.status(400).json({ error: "Request body must be valid JSON." });

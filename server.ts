@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import type { Request, Response } from "express";
+import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { GoogleGenAI, ThinkingLevel } from "@google/genai";
@@ -290,19 +291,31 @@ async function startServer() {
     }
   });
 
-  if (process.env.NODE_ENV !== "production") {
+  app.get("/favicon.ico", (_req: Request, res: Response) => {
+    res.status(204).end();
+  });
+
+  app.all("/api/*", (_req: Request, res: Response) => {
+    res.status(404).json({ error: "API endpoint not found." });
+  });
+
+  const distPath = path.resolve(__dirname, "dist");
+  const distIndexPath = path.join(distPath, "index.html");
+  const shouldServeBuiltDist =
+    process.env.NODE_ENV === "production" && fs.existsSync(distIndexPath);
+
+  if (shouldServeBuiltDist) {
+    app.use(express.static(distPath));
+    app.get("*", (_req: Request, res: Response) => {
+      res.sendFile(distIndexPath);
+    });
+  } else {
     const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
     });
     app.use(vite.middlewares);
-  } else {
-    const distPath = path.resolve(__dirname, "dist");
-    app.use(express.static(distPath));
-    app.get("/{*path}", (_req: Request, res: Response) => {
-      res.sendFile(path.join(distPath, "index.html"));
-    });
   }
 
   app.listen(PORT, "0.0.0.0", () => {

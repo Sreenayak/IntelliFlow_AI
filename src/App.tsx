@@ -354,7 +354,7 @@ export default function App() {
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
       {/* 3-Zone Top Bar */}
       <header className="sticky top-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xs border-b border-slate-200 dark:border-slate-800">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-8">
+        <div className="max-w-[1760px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-8">
           {/* Zone 1: Brand Title */}
           <a
             href="/"
@@ -411,7 +411,7 @@ export default function App() {
       {/* Main Content */}
       <main
         id="workbench"
-        className="flex-1 w-full max-w-[1440px] mx-auto px-4 sm:px-6 py-6 flex flex-col gap-5"
+        className="flex-1 w-full max-w-[1760px] mx-auto px-4 sm:px-6 py-6 flex flex-col gap-5"
       >
         {/* Workspace Title & Utility Row */}
         <div className="flex flex-wrap items-end justify-between gap-4">

@@ -185,7 +185,7 @@ export function ReviewOutputPane({
             </h3>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
               Paste a code snippet or load a file on the left, choose an audit
-              focus, and run a streaming review. CodeBench inspects line-by-line
+              focus, and run a streaming review. IntelliFlow AI inspects line-by-line
               logic, highlights concrete risks, and outputs a clean refactored
               replacement.
             </p>

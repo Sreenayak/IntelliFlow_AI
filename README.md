@@ -1,6 +1,6 @@
-# CodeBench
+# IntelliFlow AI
 
-CodeBench is a full-stack AI code review application that lets developers paste or upload a code snippet, choose a review focus, and receive a structured engineering review in real time. The app combines a React + Vite frontend with an Express backend and a Google Gemini model to stream findings as Markdown.
+IntelliFlow AI is a full-stack AI code review application that lets developers paste or upload a code snippet, choose a review focus, and receive a structured engineering review in real time. The app combines a React + Vite frontend with an Express backend and a Google Gemini model to stream findings as Markdown.
 
 This project is designed for quick review workflows: it validates input before sending to the backend, enforces safe static analysis patterns, and presents findings in a clean, developer-friendly interface.
 
@@ -188,4 +188,4 @@ This project does not currently declare a package license in `package.json`. If 
 
 ## Notes
 
-The application is currently named CodeBench in the codebase and UI, even though the repository folder is named IntelliFlow_AI. The project is a self-contained review tool and can be used as a starting point for AI-assisted engineering workflows, code quality automation, or developer productivity tooling.
+The project is a self-contained review tool and can be used as a starting point for AI-assisted engineering workflows, code quality automation, or developer productivity tooling.

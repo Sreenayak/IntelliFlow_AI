@@ -319,11 +319,11 @@ async function startServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`CodeBench server listening on http://localhost:${PORT}`);
+    console.log(`IntelliFlow AI server listening on http://localhost:${PORT}`);
   });
 }
 
 startServer().catch((err) => {
-  console.error("Failed to start CodeBench server:", err);
+  console.error("Failed to start IntelliFlow AI server:", err);
   process.exit(1);
 });

@@ -18,7 +18,7 @@ class AppErrorBoundary extends Component<
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error("CodeBench render error:", error, info);
+    console.error("IntelliFlow AI render error:", error, info);
   }
 
   render() {
@@ -27,7 +27,7 @@ class AppErrorBoundary extends Component<
         <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50 text-slate-900">
           <div className="max-w-md w-full rounded-xl border border-red-200 bg-white p-6 space-y-3">
             <h1 className="font-display text-lg font-semibold text-red-700">
-              Something went wrong rendering CodeBench
+              Something went wrong rendering IntelliFlow AI
             </h1>
             <p className="text-sm text-slate-600">
               {this.state.error.message || "Unexpected runtime error."}

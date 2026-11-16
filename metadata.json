@@ -1,5 +1,5 @@
 {
-  "name": "CodeBench",
+  "name": "IntelliFlow AI",
   "description": "Streaming AI code reviewer with server-side Gemini analysis, strict input validation, and pure CSS icons.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

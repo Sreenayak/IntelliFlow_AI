@@ -362,10 +362,10 @@ export default function App() {
           >
             <CssIcon
               name="logo"
-              size={18}
-              className="text-blue-600 dark:text-blue-400"
+              size={28}
+              className="text-white"
             />
-            <span>CodeBench</span>
+            <span>IntelliFlow AI</span>
           </a>
 
           {/* Zone 2: Concise Navigation Links */}
@@ -417,7 +417,7 @@ export default function App() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-2xl">
             <h1 className="font-display text-2xl sm:text-[26px] font-bold tracking-tight text-slate-900 dark:text-white [text-wrap:balance]">
-              Code Review Workbench
+              AI Code Review Studio
             </h1>
             <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
               Paste source code for a server-side streaming audit covering

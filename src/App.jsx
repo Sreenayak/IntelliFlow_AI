@@ -21,6 +21,24 @@ import {
 const HISTORY_STORAGE_KEY = "codebench_review_history_v1";
 const THEME_STORAGE_KEY = "codebench_theme_v1";
 
+function safeGetStorage(key: string): string | null {
+  try {
+    return typeof window !== "undefined" ? window.localStorage.getItem(key) : null;
+  } catch {
+    return null;
+  }
+}
+
+function safeSetStorage(key: string, value: string): void {
+  try {
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(key, value);
+    }
+  } catch {
+    // Ignore storage access errors in restricted iframes
+  }
+}
+
 function extractSnippetTitle(code: string): string {
   const firstMeaningfulLine = code
     .split(/\r?\n/)
@@ -36,7 +54,7 @@ function extractSnippetTitle(code: string): string {
 export default function App() {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
-    const saved = localStorage.getItem(THEME_STORAGE_KEY);
+    const saved = safeGetStorage(THEME_STORAGE_KEY);
     if (saved === "dark") return true;
     if (saved === "light") return false;
     return window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
@@ -55,7 +73,7 @@ export default function App() {
   const [guideOpen, setGuideOpen] = useState(false);
   const [history, setHistory] = useState<ReviewHistoryEntry[]>(() => {
     try {
-      const raw = localStorage.getItem(HISTORY_STORAGE_KEY);
+      const raw = safeGetStorage(HISTORY_STORAGE_KEY);
       if (!raw) return [];
       const parsed = JSON.parse(raw);
       return Array.isArray(parsed) ? parsed : [];
@@ -71,19 +89,15 @@ export default function App() {
     const root = document.documentElement;
     if (darkMode) {
       root.classList.add("dark");
-      localStorage.setItem(THEME_STORAGE_KEY, "dark");
+      safeSetStorage(THEME_STORAGE_KEY, "dark");
     } else {
       root.classList.remove("dark");
-      localStorage.setItem(THEME_STORAGE_KEY, "light");
+      safeSetStorage(THEME_STORAGE_KEY, "light");
     }
   }, [darkMode]);
 
   useEffect(() => {
-    try {
-      localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(history.slice(0, 20)));
-    } catch {
-      // Ignore storage quota issues
-    }
+    safeSetStorage(HISTORY_STORAGE_KEY, JSON.stringify(history.slice(0, 20)));
   }, [history]);
 
   useEffect(() => {

@@ -357,7 +357,7 @@ export default function App() {
         <div className="max-w-[1760px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-8">
           {/* Zone 1: Brand Title */}
           <a
-            href="/"
+            href={import.meta.env.BASE_URL}
             className="inline-flex items-center gap-2.5 font-display text-lg font-bold tracking-tight text-slate-900 dark:text-white whitespace-nowrap shrink-0"
           >
             <CssIcon

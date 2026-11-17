@@ -127,6 +127,19 @@ function extractReadableError(err: unknown): {
     };
   }
 
+  if (
+    upper.includes("UNAVAILABLE") ||
+    upper.includes("HIGH DEMAND") ||
+    upper.includes("503")
+  ) {
+    return {
+      status: 503,
+      code: "MODEL_UNAVAILABLE",
+      message:
+        "Gemini is temporarily experiencing high demand. Wait a few seconds and retry. If this keeps happening, switch to a currently available Gemini model in the server configuration.",
+    };
+  }
+
   if (upper.includes("NOT_FOUND") || upper.includes("404")) {
     return {
       status: 502,

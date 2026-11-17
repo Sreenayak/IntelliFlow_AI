@@ -20,6 +20,8 @@ import {
 
 const HISTORY_STORAGE_KEY = "codebench_review_history_v1";
 const THEME_STORAGE_KEY = "codebench_theme_v1";
+const REVIEW_API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL?.trim().replace(/\/+$/, "") ?? "";
 
 function safeGetStorage(key: string): string | null {
   try {
@@ -145,6 +147,14 @@ export default function App() {
     }
 
     setValidationError(null);
+    if (import.meta.env.PROD && !REVIEW_API_BASE_URL) {
+      setStreamError(
+        "The review API is not configured for this deployment. Set VITE_API_BASE_URL to your backend URL and redeploy."
+      );
+      setStatus("error");
+      return;
+    }
+
     setStreamError(null);
     setMarkdown("");
     setStatus("connecting");
@@ -164,7 +174,10 @@ export default function App() {
     let receivedErrorEvent = false;
 
     try {
-      const response = await fetch("/api/review", {
+      const reviewUrl = REVIEW_API_BASE_URL
+        ? `${REVIEW_API_BASE_URL}/api/review`
+        : "/api/review";
+      const response = await fetch(reviewUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

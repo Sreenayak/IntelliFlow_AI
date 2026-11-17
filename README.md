@@ -71,6 +71,7 @@ PORT=3000
 Important:
 
 - The code in `server.ts` reads `GEMINI_API_KEY` from the environment.
+- Set `CORS_ORIGINS` on the backend to the allowed frontend origins, separated by commas. For this GitHub Pages site, include `https://sreenayak.github.io`.
 - The repository's `.env.example` still contains older `OPENAI_*` variables and should be updated or replaced to match the current implementation.
 - Do not expose the API key in the frontend or client code.
 
@@ -107,7 +108,14 @@ The production server serves the built frontend and the API from the same Node p
 
 The Vite build uses `/IntelliFlow_AI/` as its base path so its assets load from this repository's GitHub Pages URL. In repository Settings > Pages, set the build and deployment source to **GitHub Actions**. The workflow in `.github/workflows/deploy-pages.yml` builds the Vite app and publishes `dist/` whenever changes are pushed to `main`.
 
-GitHub Pages only hosts static files: the interface can load there, but code reviews require deploying the Express backend to a Node.js host with `GEMINI_API_KEY` configured. For a fully working app, deploy the frontend and backend together with `npm run build` and `npm start`.
+GitHub Pages only hosts static files, so it cannot run `/api/review`. To enable streaming reviews:
+
+1. Deploy this app's Express backend to a Node.js host with `npm start`. Configure `GEMINI_API_KEY` and `CORS_ORIGINS=https://sreenayak.github.io` in that host's environment.
+2. Copy the backend's public HTTPS origin (for example, `https://your-service.example.com`).
+3. In the GitHub repository, open **Settings > Secrets and variables > Actions > Variables** and create `VITE_API_BASE_URL` with that origin (no trailing slash).
+4. Run the **Deploy to GitHub Pages** workflow again. It passes `VITE_API_BASE_URL` into the Vite build.
+
+The frontend displays a configuration error instead of sending API requests to GitHub Pages when `VITE_API_BASE_URL` is missing. Keep `GEMINI_API_KEY` only on the backend; never add it as a `VITE_` variable.
 
 ## Available Scripts
 
@@ -126,7 +134,7 @@ npm run lint     # TypeScript type-check (`tsc --noEmit`)
 - The user writes or uploads code in the editor panel.
 - A review focus is selected from options like Security or Full Audit.
 - The app validates the snippet length and format.
-- A POST request is sent to `/api/review`.
+- A POST request is sent to the configured backend's `/api/review` endpoint.
 
 ### Backend flow
 

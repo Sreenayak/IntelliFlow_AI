@@ -12,6 +12,19 @@ const __dirname = path.dirname(__filename);
 const PORT = Number(process.env.PORT) || 3000;
 const MIN_CODE_LENGTH = 15;
 const MAX_CODE_LENGTH = 15000;
+const DEFAULT_CORS_ORIGINS = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "http://127.0.0.1:3000",
+  "http://127.0.0.1:5173",
+  "https://sreenayak.github.io",
+];
+const allowedOrigins = new Set(
+  (process.env.CORS_ORIGINS ?? DEFAULT_CORS_ORIGINS.join(","))
+    .split(",")
+    .map((origin) => origin.trim().replace(/\/+$/, ""))
+    .filter(Boolean)
+);
 
 const ALLOWED_FOCUSES = new Set([
   "full",
@@ -163,6 +176,26 @@ function sendSse(res: Response, event: string, data: unknown): void {
 
 async function startServer() {
   const app = express();
+
+  app.use((req: Request, res: Response, next) => {
+    const origin = req.get("Origin");
+    const isAllowedOrigin = Boolean(origin && allowedOrigins.has(origin));
+
+    if (isAllowedOrigin && origin) {
+      res.setHeader("Access-Control-Allow-Origin", origin);
+      res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+      res.setHeader("Vary", "Origin");
+    }
+
+    if (req.method === "OPTIONS") {
+      res.status(origin && !isAllowedOrigin ? 403 : 204).end();
+      return;
+    }
+
+    next();
+  });
+
   app.use(express.json({ limit: "256kb" }));
 
   app.get("/api/health", (_req: Request, res: Response) => {

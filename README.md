@@ -105,7 +105,9 @@ The production server serves the built frontend and the API from the same Node p
 
 ### GitHub Pages
 
-The Vite build uses `/IntelliFlow_AI/` as its base path so its assets load from this repository's GitHub Pages URL. Build with `npm run build` and publish the generated `dist/` directory using GitHub Pages (Settings > Pages). GitHub Pages only hosts static files: the interface can load there, but code reviews require deploying the Express backend to a Node.js host with `GEMINI_API_KEY` configured. For a fully working app, deploy the frontend and backend together with `npm run build` and `npm start`.
+The Vite build uses `/IntelliFlow_AI/` as its base path so its assets load from this repository's GitHub Pages URL. In repository Settings > Pages, set the build and deployment source to **GitHub Actions**. The workflow in `.github/workflows/deploy-pages.yml` builds the Vite app and publishes `dist/` whenever changes are pushed to `main`.
+
+GitHub Pages only hosts static files: the interface can load there, but code reviews require deploying the Express backend to a Node.js host with `GEMINI_API_KEY` configured. For a fully working app, deploy the frontend and backend together with `npm run build` and `npm start`.
 
 ## Available Scripts
 

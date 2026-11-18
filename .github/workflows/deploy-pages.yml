@@ -34,7 +34,12 @@ jobs:
       - name: Build site
         env:
           VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
-        run: npm run build
+        run: |
+          if [ -z "$VITE_API_BASE_URL" ]; then
+            echo "::error::VITE_API_BASE_URL is not configured. Add it under Settings > Secrets and variables > Actions > Variables, then rerun this workflow."
+            exit 1
+          fi
+          npm run build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

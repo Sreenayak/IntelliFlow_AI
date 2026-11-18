@@ -115,7 +115,7 @@ GitHub Pages only hosts static files, so it cannot run `/api/review`. To enable 
 3. In the GitHub repository, open **Settings > Secrets and variables > Actions > Variables** and create `VITE_API_BASE_URL` with that origin (no trailing slash).
 4. Run the **Deploy to GitHub Pages** workflow again. It passes `VITE_API_BASE_URL` into the Vite build.
 
-The frontend displays a configuration error instead of sending API requests to GitHub Pages when `VITE_API_BASE_URL` is missing. Keep `GEMINI_API_KEY` only on the backend; never add it as a `VITE_` variable.
+The deployment workflow stops with a clear error if `VITE_API_BASE_URL` is missing, rather than publishing a site that cannot submit reviews. The frontend also displays a configuration error instead of sending API requests to GitHub Pages when the URL is missing. Keep `GEMINI_API_KEY` only on the backend; never add it as a `VITE_` variable.
 
 ## Available Scripts
 

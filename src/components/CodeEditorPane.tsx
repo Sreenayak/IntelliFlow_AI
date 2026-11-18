@@ -10,6 +10,7 @@ import {
   type SampleSnippet,
 } from "../data/samples";
 import { CssIcon } from "./CssIcon";
+import { LocalPreflightPanel } from "./LocalPreflightPanel";
 
 interface CodeEditorPaneProps {
   code: string;
@@ -276,6 +277,8 @@ export function CodeEditorPane({
           className="flex-1 w-full h-full py-4 px-4 resize-none bg-transparent font-mono text-[13px] leading-6 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none overflow-auto"
         />
       </div>
+
+      <LocalPreflightPanel code={code} />
 
       {/* Inline validation feedback */}
       {validationError ? (

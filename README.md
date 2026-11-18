@@ -16,12 +16,15 @@ The application is built around a simple idea:
 
 The system is intentionally conservative: it does not execute user code, keeps the API key on the server, and uses a strict prompt format so the model produces a predictable review structure.
 
+The Local Preflight panel runs lightweight heuristic checks in the browser for patterns such as hard-coded credentials, dynamic code execution, unsafe HTML insertion, and disabled TLS verification. It is not a complete security audit; findings should be verified manually.
+
 ## Features
 
 - Streaming AI review output in Markdown format
 - Review modes for full audit, security, performance, bug detection, and clean code
 - Language detection and language selection for TypeScript, JavaScript, Python, Go, Rust, Java, SQL, and other code samples
 - Input validation and length limits for safer review requests
+- Instant local preflight checks for common risky code patterns without sending code to the server
 - File upload support for common source code file types
 - Sample snippets for quick testing and demonstrations
 - Local conversation-like review history stored in the browser
